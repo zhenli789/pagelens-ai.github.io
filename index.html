@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageLens AI - AI-Powered Web Content Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--success);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        /* Features Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        /* How to Use Section */
+        .how-to-use {
+            background: var(--light);
+        }
+        
+        .carousel {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .carousel-image {
+            width: 100%;
+            height: auto; /* 改为自动高度 */
+            object-fit: contain; /* 保持比例完整显示 */
+            background-color: #f0f4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-height: 600px; /* 限制最大高度为600px */
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .carousel-btn:hover {
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .carousel-btn.prev {
+            left: 20px;
+        }
+        
+        .carousel-btn.next {
+            right: 20px;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            background: white;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular::before {
+            content: "Most Popular";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .plan-name {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .plan-period {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .plan-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .plan-features i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        .pricing-card .plan-features .fa-times {
+        color: red;
+        }
+
+        .plan-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .plan-button:hover {
+            background: var(--secondary);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .team-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--success);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 50px auto;
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .carousel-image {
+                max-height: 400px; /* 移动端最大高度设为400px */
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-10px);
+            }
+            
+            .carousel-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="icons/icon128.png" alt="PageLens AI Icon">
+                    </div>
+                    <div class="logo-text">PageLens AI</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-to-use">How to Use</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#" id="privacy-link">Privacy Policy</a></li>
+                        <li><a href="#" id="terms-link">Terms of Service</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Enhance Your Browsing with AI Power</h1>
+            <p>PageLens AI is your intelligent browsing assistant that provides instant content analysis, smart search, and AI-powered insights for any webpage.</p>
+            <a href="https://chromewebstore.google.com/?hl=zh-CN&utm_source=ext_sidebar" class="cta-button" target="_blank">Install from Chrome Web Store</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>Discover how PageLens AI transforms your browsing experience with intelligent tools</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Smart Content Search</h3>
+                    <p>Quickly find and highlight relevant information on any webpage with our intelligent search functionality.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Get deep insights and summaries of webpage content with our advanced AI analysis engine.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>One-Click Access</h3>
+                    <p>Instantly activate the smart sidebar with a simple click on the floating button.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Export Results</h3>
+                    <p>Save your analysis results in TXT or Markdown format for future reference.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Search Integration</h3>
+                    <p>Access real-time information from the web with integrated search capabilities (Pro and Plus plans).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Privacy Focused</h3>
+                    <p>Your data stays secure. We only collect essential information to provide our services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section class="section how-to-use" id="how-to-use">
+        <div class="container">
+            <div class="section-title">
+                <h2>How to Use PageLens AI</h2>
+                <p>Follow these simple steps to get the most out of your browsing experience</p>
+            </div>
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="images/step1.png" alt="Step 1: Install the extension" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>Web search</h3>
+                            <p>Open sidebar with floating button for in-page internet search without disrupting browsing</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/step2.png" alt="Step 2: Click the floating button" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>AI-powered search</h3>
+                            <p>AI tool with built-in web search accessing latest information</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/step3.png" alt="Step 3: Search or analyze content" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>Setup and Login</h3>
+                            <p>Customized settings and login to access AI features</p>
+                        </div>
+                    </div>
+<!--                     <div class="carousel-slide">
+                        <img src="images/step4.png" alt="Step 4: Export results" class="carousel-image">
+                        <div class="carousel-caption">
+                            <h3>Step 4: Export Your Results</h3>
+                            <p>Save your analysis in TXT or Markdown format for future reference</p>
+                        </div>
+                    </div> -->
+                </div>
+                <button class="carousel-btn prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-nav">
+                    <div class="carousel-dot active"></div>
+                    <div class="carousel-dot"></div>
+                    <div class="carousel-dot"></div>
+                    <!-- <div class="carousel-dot"></div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>Choose the plan that fits your needs. All plans include core features with varying capacity.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Free Member</h3>
+                    <div class="plan-price">$0</div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Basic web search</li>
+                        <li><i class="fas fa-check"></i> 30 regular AI analyses per month</li>
+                        <li><i class="fas fa-times"></i> Pro AI analysis (content creation, other features in development)</li>
+                        <li><i class="fas fa-times"></i> No rate limits</li>
+                        <li><i class="fas fa-check"></i> TXT and Markdown export</li>
+                        <li><i class="fas fa-times"></i> AI web search</li>
+                        <li><i class="fas fa-check"></i> Limited technical support</li>
+                        <li><i class="fas fa-times"></i> Ads free</li>
+                    </ul>
+                    <button class="plan-button">Get Started</button>
+                </div>
+                <div class="pricing-card popular">
+                    <h3 class="plan-name">Pro Member</h3>
+                    <div class="plan-price">$8.45</div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Basic web search</li>
+                        <li><i class="fas fa-check"></i> 3,000 regular AI analyses per month</li>
+                        <li><i class="fas fa-times"></i> Pro AI analysis (content creation, other features in development)</li>
+                        <li><i class="fas fa-check"></i> No rate limits</li>
+                        <li><i class="fas fa-check"></i> TXT and Markdown export</li>
+                        <li><i class="fas fa-check"></i> AI Web search</li>
+                        <li><i class="fas fa-check"></i> Priority technical support</li>
+                        <li><i class="fas fa-check"></i> Ads free</li>
+                    </ul>
+                    <button class="plan-button">Choose Pro</button>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Plus Member</h3>
+                    <div class="plan-price">$18.45</div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Basic web search</li>
+                        <li><i class="fas fa-check"></i> Unlimited regular AI analyses</li>
+                        <li><i class="fas fa-check"></i> 200 Pro AI analyses per month (content creation, other features in development)</li>
+                        <li><i class="fas fa-check"></i> No rate limits</li>
+                        <li><i class="fas fa-check"></i> TXT and Markdown export</li>
+                        <li><i class="fas fa-check"></i> AI Web search</li>
+                        <li><i class="fas fa-check"></i> Priority technical support</li>
+                        <li><i class="fas fa-check"></i> Ads free</li>
+                    </ul>
+                    <button class="plan-button">Choose Plus</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About PageLens AI</h2>
+                <p>Learn about our mission and the team behind the product</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>PageLens AI was created with a simple goal: to make web browsing more efficient and intelligent. We believe that AI technology should be accessible to everyone, enhancing how we interact with online content.</p>
+                    <p>Have questions or feedback? We'd love to hear from you.</p>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> pagelensai@126.com</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="images/team-photo.webp" alt="PageLens AI Team" class="team-photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PageLens AI</h3>
+                    <p>AI-powered web content analysis and browsing assistant that enhances your online experience.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-to-use">How to Use</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#" id="footer-privacy-link">Privacy Policy</a></li>
+                        <li><a href="#" id="footer-terms-link">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> pagelensai@126.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PageLens AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal" id="privacy-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-privacy">&times;</span>
+            <h2 class="modal-title">PageLens AI Privacy Policy</h2>
+            <p><strong>Last Updated:</strong> November 2025</p>
+            
+            <h3>Overview</h3>
+            <p>PageLens AI (hereinafter referred to as "we," "our") is a browser extension. We deeply understand the importance of privacy protection and are committed to safeguarding user privacy and data security. This Privacy Policy details how we collect, use, store, and protect your information. We strictly adhere to the principle of data minimization, collecting only the limited data necessary to achieve functionality. All data processing activities are based on the user's explicit consent or are necessary for the performance of a contract.</p>
+            
+            <h3>Data Collection and Use</h3>
+            <p>The data we collect primarily falls into five main categories, each with its specific purpose and necessity. User account information, including email address, username, and encrypted password, is actively provided by the user during registration and is necessary for creating a user account and performing authentication. Membership and usage data, such as membership level, subscription status, and AI usage count, are automatically recorded to implement membership benefit management, track usage limits, and bill subscription services.</p>
+            <p>To provide a personalized experience, we store the user's local settings and preferences, including bookmarks, search engine settings, homepage settings, and language preferences. This data is stored in the local browser and is actively set by the user. When a user utilizes the AI analysis feature, we process the webpage content and URL addresses that the user actively chooses to analyze. This data serves as the core input for the AI analysis function; we process it in real-time and do not store it long-term. Furthermore, to maintain normal service operation, we automatically record technical operational data such as IP addresses, request timestamps, and error logs, primarily used for service monitoring, security protection, and troubleshooting.</p>
+            
+            <h3>Data Retention Policy</h3>
+            <p>We follow strict data retention principles, with different retention periods for different types of data. Immediately processed data, such as webpage content and AI analysis requests, is deleted immediately after processing and is not stored long-term. Short-term retained data includes user session information (automatically expires after 30 days), operational logs (automatically cleared after 90 days), and error records (retained for 180 days for service improvement). Long-term retained data is limited to user account information (retained for the duration of the account's existence), membership information (retained during the subscription period and for the subsequent period required by law), and payment records (retained by Lemon Squeezy for the period required by law).</p>
+            <p>Users have full control over their data and can delete their account at any time through the extension settings or contact customer service to request data deletion. For users who have stopped using the service for more than 180 days, we automatically trigger a data cleanup process to ensure no unnecessary user data is retained.</p>
+            
+            <h3>Protection of User Rights</h3>
+            <p>We fully respect and guarantee users' data rights. You have the right to access your personal data, view data usage reports, and export your settings and bookmark data. You can update your account information, modify preferences, and adjust privacy options at any time. If you wish to delete data, you can request the deletion of your user account, the clearance of usage records, or the removal of all stored personal data.</p>
+            <p>You also have the right to withdraw consent, allowing you to stop specific data processing, cancel data collection authorization at any time, while still being able to use basic functions. These rights can be exercised directly through the extension's settings interface or by contacting our privacy team or customer support service.</p>
+            
+            <h3>Security Protection Measures</h3>
+            <p>We have implemented multi-layered security measures to protect your data security. Technically, we use TLS 1.3 to encrypt all data transmissions, employ AES-256 encryption for storing sensitive information, implement strict role-based access control, and utilize JWT tokens for secure authentication.</p>
+            <p>At the organizational and management level, we provide privacy protection training for all employees and strictly enforce the principle of data minimization, collecting only necessary data. We conduct regular security audits, perform quarterly security vulnerability scans, and have established a 72-hour security incident response mechanism. In terms of infrastructure, we rely on the security capabilities of the Railway platform, have deployed DDoS protection and intrusion detection systems, and have formulated comprehensive data backup and disaster recovery plans.</p>
+            
+            <h3>Third-Party Service Data Sharing</h3>
+            <p>To achieve specific functionalities, we share necessary data with a limited number of third-party service providers under strict restrictions. When you use the AI analysis feature, we share the webpage content and analysis prompts requested by the user with the OpenRouter AI service. This data is transmitted securely via API keys, used only for real-time processing, and is not stored. When you use the internet search feature, we share search query terms with the Serper.dev search service. These query terms are anonymized and not linked to user identity information. For payment processing, we share necessary payment information and user identifiers with the Lemon Squeezy payment service. All payment data processing complies with PCI DSS standards.</p>
+            <p>We adhere to strict principles of limited data sharing: sharing only the minimum amount of data necessary for functionality, strictly limiting the scope of use by third parties, signing data processing agreements with all third parties, and being transparent with users about all data sharing relationships.</p>
+            
+            <h3>Other Important Terms</h3>
+            <p>Our data processing is based on three legal grounds: the user's explicit consent, the necessity for the performance of a contract, and legitimate interests. Based on consent, the user explicitly agrees to data processing and can withdraw consent at any time, without affecting the lawfulness of processing based on consent before its withdrawal. Based on contractual necessity, we only process data necessary for performing the user service contract and providing core functionalities. Based on legitimate interests, we conduct processing for service improvement, security protection, etc., while ensuring it does not affect the user's fundamental rights.</p>
+            <p>Our services may involve data processing in countries such as the United States. All international data transfers follow adequacy decision standards, implement appropriate safeguard measures, and ensure the enforceability of user rights. Transfer security is guaranteed through Standard Contractual Clauses, Binding Corporate Rules, and approved certification mechanisms.</p>
+            <p>It is important to note that our services are not directed at children under the age of 13. We do not knowingly collect children's data. If we discover data from a child, we will delete it immediately. Parents can contact us at any time to request the deletion of relevant data.</p>
+            <p>We may update this Privacy Policy from time to time. For significant changes, we will notify users 30 days in advance through the extension interface and notify registered users via email. Continued use of the service after updates constitutes acceptance of the new policy.</p>
+            <p>If you have any privacy-related questions, please feel free to contact us via email at pagelensai@126.com. We are committed to responding within 48 hours and provide support in both Chinese and English.</p>
+            
+            <hr>
+            <p><strong>Important Note:</strong> This Privacy Policy is an integral part of your use of the PageLens AI service. We are committed to continuously improving privacy protection measures and updating this policy in a timely manner to reflect the latest data processing practices.</p>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal" id="terms-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-terms">&times;</span>
+            <h2 class="modal-title">Terms of Service</h2>
+            <p>Last updated: October 10, 2025</p>
+            
+            <h3>1. Acceptance of Terms</h3>
+            <p>By installing and using PageLens AI ("the Extension"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our Extension.</p>
+            
+            <h3>2. Description of Service</h3>
+            <p>PageLens AI is a browser extension that provides AI-powered content analysis and search functionality for webpages. The service includes both free and paid subscription tiers.</p>
+            
+            <h3>3. User Responsibilities</h3>
+            <p>You agree to:</p>
+            <ul>
+                <li>Use the Extension only for lawful purposes</li>
+                <li>Not attempt to reverse engineer, decompile, or hack the Extension</li>
+                <li>Not use the Extension to violate any third-party rights</li>
+                <li>Comply with all applicable laws and regulations</li>
+            </ul>
+            
+            <h3>4. Paid Subscriptions</h3>
+            <p>PageLens AI offers the following subscription plans:</p>
+            <ul>
+                <li><strong>Free Member:</strong> Limited functionality with 50 AI analyses per month</li>
+                <li><strong>Pro Member:</strong> $8.49/month for 3000 AI analyses and additional features</li>
+                <li><strong>Plus Member:</strong> $18.49/month for unlimited AI analyses and premium features</li>
+            </ul>
+            
+            <h3>5. Billing and Cancellation</h3>
+            <p><strong>Refund Policy:</strong> All sales are final. We do not provide refunds for subscription payments.</p>
+            <p><strong>Automatic Renewal:</strong> Subscriptions automatically renew at the end of each billing cycle until canceled.</p>
+            <p><strong>Cancellation:</strong> You may cancel your subscription at any time through your account settings. Cancellation will take effect at the end of the current billing period.</p>
+            
+            <h3>6. Intellectual Property</h3>
+            <p>All intellectual property rights in the Extension, including its code, design, and branding, are owned by PageLens AI or its licensors. You are granted a limited license to use the Extension in accordance with these terms.</p>
+            
+            <h3>7. Disclaimer of Warranties</h3>
+            <p>The Extension is provided "as is" without warranties of any kind, either express or implied. We do not guarantee that the Extension will be error-free or uninterrupted.</p>
+            
+            <h3>8. Limitation of Liability</h3>
+            <p>To the fullest extent permitted by law, PageLens AI shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the Extension.</p>
+            
+            <h3>9. Modifications to Terms</h3>
+            <p>We reserve the right to modify these terms at any time. Continued use of the Extension after changes constitutes acceptance of the modified terms.</p>
+            
+            <h3>10. Contact Information</h3>
+            <p>For questions about these Terms of Service, please contact the developer at pagelensai@126.com</p>
+        </div>
+    </div>
+
+    <script>
+        // Carousel functionality
+        const carouselTrack = document.querySelector('.carousel-track');
+        const carouselSlides = document.querySelectorAll('.carousel-slide');
+        const carouselDots = document.querySelectorAll('.carousel-dot');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        
+        let currentSlide = 0;
+        const totalSlides = carouselSlides.length;
+        
+        function updateCarousel() {
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update active dot
+            carouselDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Dot navigation
+        carouselDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+            });
+        });
+        
+        // Auto advance every 5 seconds
+        setInterval(nextSlide, 5000);
+        
+        // Modal functionality
+        const privacyModal = document.getElementById('privacy-modal');
+        const termsModal = document.getElementById('terms-modal');
+        const privacyLink = document.getElementById('privacy-link');
+        const termsLink = document.getElementById('terms-link');
+        const footerPrivacyLink = document.getElementById('footer-privacy-link');
+        const footerTermsLink = document.getElementById('footer-terms-link');
+        const closePrivacy = document.getElementById('close-privacy');
+        const closeTerms = document.getElementById('close-terms');
+        
+        // Open Privacy Policy modal
+        privacyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            privacyModal.style.display = 'block';
+        });
+        
+        footerPrivacyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            privacyModal.style.display = 'block';
+        });
+        
+        // Open Terms of Service modal
+        termsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            termsModal.style.display = 'block';
+        });
+        
+        footerTermsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            termsModal.style.display = 'block';
+        });
+        
+        // Close modals
+        closePrivacy.addEventListener('click', () => {
+            privacyModal.style.display = 'none';
+        });
+        
+        closeTerms.addEventListener('click', () => {
+            termsModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === privacyModal) {
+                privacyModal.style.display = 'none';
+            }
+            if (e.target === termsModal) {
+                termsModal.style.display = 'none';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
