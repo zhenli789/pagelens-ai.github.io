@@ -5,29 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PageLens AI - AI-Powered Web Content Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #7209b7;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
+            --primary: #4a6cf7;
+            --primary-light: #eef2ff;
+            --secondary: #6b7ff7;
+            --accent: #7b61ff;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             background-color: #fff;
             color: var(--dark);
             line-height: 1.6;
+            font-weight: 400;
         }
         
         .container {
@@ -39,13 +45,14 @@
         
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: white;
+            color: var(--dark);
+            padding: 18px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
         
         .header-content {
@@ -57,149 +64,213 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            background: transparent;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: none;
         }
-        
+
         .logo-icon img {
-            width: 70%;
-            height: 70%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
+            filter: none;
+            border-radius: 8px;
         }
         
         .logo-text {
             font-size: 24px;
             font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 32px;
         }
         
         nav a {
-            color: white;
+            color: var(--dark);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
+            font-size: 15px;
         }
         
         nav a:hover {
-            color: var(--success);
+            color: var(--primary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
         }
         
         /* Hero Section */
         .hero {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
+            padding: 120px 0 100px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
             text-align: center;
             position: relative;
             overflow: hidden;
         }
         
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234a6cf7' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: var(--secondary);
+            margin-bottom: 24px;
+            color: var(--dark);
+            font-weight: 700;
+            line-height: 1.2;
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             max-width: 700px;
             margin: 0 auto 40px;
             color: var(--gray);
+            font-weight: 400;
         }
         
         .cta-button {
             display: inline-block;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
+            padding: 16px 38px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 6px 20px rgba(74, 108, 247, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transition: width 0.5s ease;
+            z-index: -1;
         }
         
         .cta-button:hover {
-            background: var(--secondary);
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+            box-shadow: 0 10px 25px rgba(74, 108, 247, 0.4);
+        }
+        
+        .cta-button:hover::before {
+            width: 100%;
         }
         
         /* Features Section */
         .section {
-            padding: 80px 0;
+            padding: 100px 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
+            font-size: 2.75rem;
+            color: var(--dark);
+            margin-bottom: 18px;
+            font-weight: 700;
         }
         
         .section-title p {
             color: var(--gray);
             max-width: 700px;
             margin: 0 auto;
+            font-size: 1.1rem;
         }
         
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
         }
         
         .feature-card {
             background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
             text-align: center;
+            border: 1px solid var(--border);
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
         }
         
         .feature-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 24px;
             color: white;
-            font-size: 28px;
+            font-size: 32px;
+            box-shadow: 0 8px 20px rgba(74, 108, 247, 0.2);
         }
         
         .feature-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
+            margin-bottom: 16px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.7;
         }
         
         /* How to Use Section */
@@ -212,8 +283,10 @@
             max-width: 900px;
             margin: 0 auto;
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            background: white;
+            border: 1px solid var(--border);
         }
         
         .carousel-track {
@@ -228,15 +301,15 @@
         
         .carousel-image {
             width: 100%;
-            height: auto; /* 改为自动高度 */
-            object-fit: contain; /* 保持比例完整显示 */
-            background-color: #f0f4ff;
+            height: auto;
+            object-fit: contain;
+            background-color: var(--light);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--gray);
             font-size: 1.2rem;
-            max-height: 600px; /* 限制最大高度为600px */
+            max-height: 500px;
         }
         
         .carousel-caption {
@@ -244,17 +317,30 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: var(--dark);
+            padding: 24px;
             text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        
+        .carousel-caption h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .carousel-caption p {
+            color: var(--gray);
         }
         
         .carousel-nav {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
-            gap: 10px;
+            margin-top: 24px;
+            gap: 12px;
         }
         
         .carousel-dot {
@@ -275,24 +361,27 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.7);
-            border: none;
-            width: 50px;
-            height: 50px;
+            background: white;
+            border: 1px solid var(--border);
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             color: var(--dark);
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 10;
+            box-shadow: var(--shadow);
         }
         
         .carousel-btn:hover {
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 6px 15px rgba(74, 108, 247, 0.3);
         }
         
         .carousel-btn.prev {
@@ -310,23 +399,26 @@
         
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
         }
         
         .pricing-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 40px 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
         }
         
         .pricing-card.popular {
             border: 2px solid var(--primary);
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         
         .pricing-card.popular::before {
@@ -337,48 +429,53 @@
             transform: translateX(-50%);
             background: var(--primary);
             color: white;
-            padding: 5px 15px;
+            padding: 6px 20px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
+            box-shadow: 0 4px 10px rgba(74, 108, 247, 0.3);
         }
         
         .pricing-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-hover);
         }
         
         .pricing-card.popular:hover {
-            transform: scale(1.05) translateY(-10px);
+            transform: scale(1.03) translateY(-10px);
         }
         
         .plan-name {
             font-size: 1.8rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
+            color: var(--dark);
+            margin-bottom: 16px;
+            font-weight: 600;
         }
         
         .plan-price {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 8px;
+            line-height: 1;
         }
         
         .plan-period {
             color: var(--gray);
             font-size: 1rem;
+            margin-bottom: 30px;
         }
         
         .plan-features {
             list-style: none;
             margin: 30px 0;
             text-align: left;
+            flex-grow: 1;
         }
         
         .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--light-gray);
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
         }
@@ -388,19 +485,24 @@
         }
         
         .plan-features i {
-            color: var(--success);
-            margin-right: 10px;
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
         }
         
-        .pricing-card .plan-features .fa-times {
-        color: red;
+        .fa-check {
+            color: var(--success);
         }
-
+        
+        .fa-times {
+            color: #ef4444;
+        }
+        
         .plan-button {
             display: block;
             width: 100%;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 12px;
             background: var(--primary);
             color: white;
             text-decoration: none;
@@ -408,54 +510,83 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            font-size: 1rem;
+            margin-top: auto;
         }
         
         .plan-button:hover {
             background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 108, 247, 0.3);
         }
         
         /* About Section */
         .about-content {
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 60px;
         }
         
         .about-text {
             flex: 1;
         }
         
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
         .about-image {
             flex: 1;
             height: 400px;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: var(--shadow);
         }
         
         .team-photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover .team-photo {
+            transform: scale(1.05);
         }
         
         /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 60px 0 30px;
+            padding: 70px 0 30px;
         }
         
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 50px;
+            margin-bottom: 50px;
         }
         
         .footer-column h3 {
             font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--success);
+            margin-bottom: 24px;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .footer-column p {
+            color: #94a3b8;
+            line-height: 1.7;
         }
         
         .footer-links {
@@ -463,17 +594,18 @@
         }
         
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-links a {
-            color: #adb5bd;
+            color: #94a3b8;
             text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
             color: white;
+            padding-left: 5px;
         }
         
         .contact-info {
@@ -481,17 +613,18 @@
         }
         
         .contact-info li {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            color: #94a3b8;
         }
         
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #adb5bd;
+            color: #94a3b8;
         }
         
         /* Modal Styles */
@@ -512,42 +645,92 @@
             background: white;
             max-width: 800px;
             margin: 50px auto;
-            border-radius: 12px;
-            padding: 40px;
+            border-radius: 16px;
+            padding: 50px;
             position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
         
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             font-size: 24px;
             cursor: pointer;
             color: var(--gray);
+            transition: color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark);
+            background: var(--light-gray);
         }
         
         .modal-title {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: var(--secondary);
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .modal-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .modal-content p, .modal-content ul {
+            margin-bottom: 20px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        .modal-content ul {
+            padding-left: 20px;
+        }
+        
+        .modal-content li {
+            margin-bottom: 10px;
         }
         
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .about-content {
+                gap: 40px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .carousel-image {
-                max-height: 400px; /* 移动端最大高度设为400px */
+                max-height: 350px;
             }
             
             nav ul {
-                gap: 15px;
+                gap: 20px;
             }
             
             .hero h1 {
                 font-size: 2.5rem;
             }
             
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
             .about-content {
                 flex-direction: column;
+            }
+            
+            .about-image {
+                height: 300px;
+                order: -1;
             }
             
             .pricing-card.popular {
@@ -558,8 +741,57 @@
                 transform: translateY(-10px);
             }
             
-            .carousel-image {
-                height: 300px;
+            .features-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .modal-content {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 90px 0 70px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card,
+            .pricing-card {
+                padding: 30px 20px;
+            }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
             }
         }
     </style>
@@ -682,13 +914,6 @@
                             <p>Customized settings and login to access AI features</p>
                         </div>
                     </div>
-<!--                     <div class="carousel-slide">
-                        <img src="images/step4.png" alt="Step 4: Export results" class="carousel-image">
-                        <div class="carousel-caption">
-                            <h3>Step 4: Export Your Results</h3>
-                            <p>Save your analysis in TXT or Markdown format for future reference</p>
-                        </div>
-                    </div> -->
                 </div>
                 <button class="carousel-btn prev">
                     <i class="fas fa-chevron-left"></i>
@@ -700,7 +925,6 @@
                     <div class="carousel-dot active"></div>
                     <div class="carousel-dot"></div>
                     <div class="carousel-dot"></div>
-                    <!-- <div class="carousel-dot"></div> -->
                 </div>
             </div>
         </div>
@@ -826,7 +1050,7 @@
         <div class="modal-content">
             <span class="close-modal" id="close-privacy">&times;</span>
             <h2 class="modal-title">PageLens AI Privacy Policy</h2>
-            <p><strong>Last Updated:</strong> November 2025</p>
+            <p><strong>Last Updated:</strong> October 10, 2025</p>
             
             <h3>Overview</h3>
             <p>PageLens AI (hereinafter referred to as "we," "our") is a browser extension. We deeply understand the importance of privacy protection and are committed to safeguarding user privacy and data security. This Privacy Policy details how we collect, use, store, and protect your information. We strictly adhere to the principle of data minimization, collecting only the limited data necessary to achieve functionality. All data processing activities are based on the user's explicit consent or are necessary for the performance of a contract.</p>
@@ -870,13 +1094,13 @@
             <h2 class="modal-title">Terms of Service</h2>
             <p>Last updated: October 10, 2025</p>
             
-            <h3>1. Acceptance of Terms</h3>
+            <h3>Acceptance of Terms</h3>
             <p>By installing and using PageLens AI ("the Extension"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our Extension.</p>
             
-            <h3>2. Description of Service</h3>
+            <h3>Description of Service</h3>
             <p>PageLens AI is a browser extension that provides AI-powered content analysis and search functionality for webpages. The service includes both free and paid subscription tiers.</p>
             
-            <h3>3. User Responsibilities</h3>
+            <h3>User Responsibilities</h3>
             <p>You agree to:</p>
             <ul>
                 <li>Use the Extension only for lawful purposes</li>
@@ -885,7 +1109,7 @@
                 <li>Comply with all applicable laws and regulations</li>
             </ul>
             
-            <h3>4. Paid Subscriptions</h3>
+            <h3>Paid Subscriptions</h3>
             <p>PageLens AI offers the following subscription plans:</p>
             <ul>
                 <li><strong>Free Member:</strong> Limited functionality with 50 AI analyses per month</li>
@@ -893,24 +1117,24 @@
                 <li><strong>Plus Member:</strong> $18.49/month for unlimited AI analyses and premium features</li>
             </ul>
             
-            <h3>5. Billing and Cancellation</h3>
+            <h3>Billing and Cancellation</h3>
             <p><strong>Refund Policy:</strong> All sales are final. We do not provide refunds for subscription payments.</p>
             <p><strong>Automatic Renewal:</strong> Subscriptions automatically renew at the end of each billing cycle until canceled.</p>
             <p><strong>Cancellation:</strong> You may cancel your subscription at any time through your account settings. Cancellation will take effect at the end of the current billing period.</p>
             
-            <h3>6. Intellectual Property</h3>
+            <h3>Intellectual Property</h3>
             <p>All intellectual property rights in the Extension, including its code, design, and branding, are owned by PageLens AI or its licensors. You are granted a limited license to use the Extension in accordance with these terms.</p>
             
-            <h3>7. Disclaimer of Warranties</h3>
+            <h3>Disclaimer of Warranties</h3>
             <p>The Extension is provided "as is" without warranties of any kind, either express or implied. We do not guarantee that the Extension will be error-free or uninterrupted.</p>
             
-            <h3>8. Limitation of Liability</h3>
+            <h3>Limitation of Liability</h3>
             <p>To the fullest extent permitted by law, PageLens AI shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the Extension.</p>
             
-            <h3>9. Modifications to Terms</h3>
+            <h3>Modifications to Terms</h3>
             <p>We reserve the right to modify these terms at any time. Continued use of the Extension after changes constitutes acceptance of the modified terms.</p>
             
-            <h3>10. Contact Information</h3>
+            <h3>Contact Information</h3>
             <p>For questions about these Terms of Service, please contact the developer at pagelensai@126.com</p>
         </div>
     </div>
